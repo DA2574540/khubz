@@ -89,7 +89,7 @@ img {
   z-index: 100;
   /* transition: all 0.3s ease; */
   padding: 1rem 0;
-  background-color: var(--gray-light);
+  background-color: var(--white);
 }
 
 /* .header.scrolled {
