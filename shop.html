@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toko - Khubz'O</title>
+    <meta name="description" content="Belanja berbagai produk roti dan kue berkualitas dari Roti Lezat." />
+    <meta name="author" content="Roti Lezat" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="public/logo.svg" type="image/svg+xml">
+  </head>
+  <body>
+    <header class="header">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-content">
+            <a href="index.html" class="logo">
+              <img src="public/logo.svg" alt="Roti Lezat Logo">
+              ler
+            </a>
+            <div class="menu-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <ul class="nav-menu">
+              <li><a href="index.html">Beranda</a></li>
+              <li><a href="shop.html" class="active">Toko</a></li>
+              <li><a href="contact.html">Kontak</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Shop Banner -->
+      <section class="page-banner">
+        <div class="container">
+          <h1>Toko Kami</h1>
+          <p>Pilih produk roti dan kue favorit Anda</p>
+        </div>
+      </section>
+
+      <!-- Products Section -->
+      <section class="products">
+        <div class="container">
+          <!-- Filter -->
+          <div class="filters">
+            <div class="filter-group">
+              <label for="category">Kategori:</label>
+              <select id="category">
+                <option value="all">Semua Produk</option>
+                <option value="bread">Roti</option>
+                <option value="cake">Kue</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="sort">Urutkan:</label>
+              <select id="sort">
+                <option value="name-asc">Nama (A-Z)</option>
+                <option value="name-desc">Nama (Z-A)</option>
+                <option value="price-asc">Harga (Rendah-Tinggi)</option>
+                <option value="price-desc">Harga (Tinggi-Rendah)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="products-grid" id="products-container">
+            <!-- Products will be loaded here via JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Roti Lezat</h3>
+            <p>Menyajikan roti dan kue berkualitas tinggi dengan bahan-bahan segar dan resep tradisional sejak 1995.</p>
+            <div class="social-links">
+              <a href="#" class="social-link">Facebook</a>
+              <a href="#" class="social-link">Instagram</a>
+              <a href="#" class="social-link">Twitter</a>
+            </div>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Navigasi</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Beranda</a></li>
+              <li><a href="shop.html">Toko</a></li>
+              <li><a href="contact.html">Kontak</a></li>
+              <li><a href="#">Tentang Kami</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Produk</h3>
+            <ul class="footer-links">
+              <li><a href="#">Roti</a></li>
+              <li><a href="#">Kue</a></li>
+              <li><a href="#">Pastry</a></li>
+              <li><a href="#">Donat</a></li>
+              <li><a href="#">Roti Spesial</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h3>Kontak</h3>
+            <ul class="contact-info">
+              <li>Jl. Roti Enak No. 123, Jakarta Selatan</li>
+              <li>+62 123 4567 8910</li>
+              <li>info@tokoroti.com</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© <span id="current-year"></span> Roti Lezat. Semua Hak Dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
