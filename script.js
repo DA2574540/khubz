@@ -39,7 +39,7 @@ const products = [
     name: "Roti Gandum",
     price: 25000,
     description: "Roti gandum sehat dengan tekstur lembut dan rasa yang kaya.",
-    image: "public/logo.svg",
+    image: "public/logo.jpg",
     category: "bread",
     popular: true
   },
@@ -47,16 +47,16 @@ const products = [
     id: 8,
     name: "Roti Bawang",
     price: 15000,
-    description: "Roti dengan taburan bawang dan herba aromatik.",
-    image: "public/logo.svg",
+    description: "Roti dengan taburan bawang.",
+    image: "public/logo.jpg",
     category: "bread"
   },
   {
     id: 8,
     name: "Roti air",
     price: 15000,
-    description: "Roti dengan taburan bawang dan herba aromatik.",
-    image: "public/logo.svg",
+    description: "Roti dengan ketahanan air yang tinggi.",
+    image: "public/logo.jpg",
     category: "bread"
   }
 ];

@@ -87,16 +87,16 @@ img {
   left: 0;
   right: 0;
   z-index: 100;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   padding: 1rem 0;
-  background-color: transparent;
+  background-color: var(--white);
 }
 
-.header.scrolled {
+/* .header.scrolled {
   background-color: var(--white);
   box-shadow: var(--shadow);
   padding: 0.5rem 0;
-}
+} */
 
 .navbar {
   width: 100%;
