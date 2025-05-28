@@ -870,7 +870,7 @@ body {
   
   .modal-content {
     margin: 1rem;
-    max-height: calc(100vh - 2rem);
+    max-height: calc(70vh - 2rem);
   }
   
   .modal-footer {
