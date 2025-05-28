@@ -407,7 +407,6 @@ section {
 .footer-section h3 {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
-  color: var(--text-dark);
 }
 
 .footer-section p {
@@ -433,6 +432,7 @@ section {
 .footer-links li, .contact-info li {
   margin-bottom: 0.75rem;
   opacity: 0.9;
+  color: var(--text-dark);
 }
 
 .footer-links a {
