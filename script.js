@@ -36,17 +36,27 @@ window.addEventListener('scroll', () => {
 const products = [
   {
     id: 1,
-    name: "Anjay",
-    price: 25000,
+    name: "Roti Coklat",
+    price: 5000,
+    description: "Roti batu",
+    image: "public/logo.jpg",
+    category: "bread",
+    popular: true,   
+    toppings: [
+      { name: "Coklat ", price: 0 },
+      { name: "Matcha"}
+    ]
+  },
+  {
+    id: 1,
+    name: "Roti Lumer",
+    price: 10000,
     description: "Roti batu",
     image: "public/logo.jpg",
     category: "bread",
     popular: true,
     toppings: [
-      { name: "peju ", price: 0 },
-      { name: "marsha", price: 3000 },
-      { name: "Madu", price: 4000 },
-      { name: "Mentega", price: 2000 }
+      
     ]
   }
 ];
