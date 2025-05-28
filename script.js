@@ -127,16 +127,17 @@ if (productsContainer) {
   sortFilter.addEventListener('change', filterAndSortProducts);
 }
 
-// Contact form handling
-const contactForm = document.getElementById('contactForm');
-const name = document.getElementById('name');
-const pesan = document.getElementById('massage');
-const nomorHp = document.getElementById('phone');
 
 if (contactForm) {
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
-
+    
+    // Contact form handling
+    const contactForm = document.getElementById('contactForm');
+    const name = document.getElementById('name');
+    const pesan = document.getElementById('massage');
+    const nomorHp = document.getElementById('phone');
+    
     const nomor = "6282113790783";
     const namaPengirim = name.value.trim();
     const pesan = msg.value.trim()
