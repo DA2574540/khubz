@@ -36,16 +36,16 @@ window.addEventListener('scroll', () => {
 const products = [
   {
     id: 1,
-    name: "Roti Gandum",
+    name: "Lempuyang",
     price: 25000,
-    description: "Roti gandum sehat dengan tekstur lembut dan rasa yang kaya.",
+    description: "Roti Goreng Lumer",
     image: "public/logo.jpg",
     category: "bread",
     popular: true
   },
   {
     id: 8,
-    name: "Roti Bawang",
+    name: "",
     price: 15000,
     description: "Roti dengan taburan bawang.",
     image: "public/logo.jpg",
