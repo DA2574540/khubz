@@ -105,6 +105,8 @@ function renderProducts(productsToRender) {
 
     productsContainer.appendChild(productCard);
   });
+    
+    attachBuyButtons();
 }
 
 // Filter and sort products
