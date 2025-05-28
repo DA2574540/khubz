@@ -36,30 +36,17 @@ window.addEventListener('scroll', () => {
 const products = [
   {
     id: 1,
-    name: "Roti Gandum",
+    name: "Anjay",
     price: 25000,
-    description: "Roti gandum sehat dengan tekstur lembut dan rasa yang kaya.",
+    description: "Roti batu",
     image: "public/bread-1.jpg",
     category: "bread",
     popular: true,
     toppings: [
-      { name: "Keju Cheddar", price: 5000 },
-      { name: "Selai Kacang", price: 3000 },
+      { name: "peju ", price: 0 },
+      { name: "marsha", price: 3000 },
       { name: "Madu", price: 4000 },
       { name: "Mentega", price: 2000 }
-    ]
-  },
-  {
-    id: 2,
-    name: "Croissant",
-    price: 15000,
-    description: "Croissant lembut dengan lapisan yang renyah dan mentega premium.",
-    image: "public/bread-2.jpg",
-    category: "pastry",
-    toppings: [
-      { name: "Coklat Nutella", price: 6000 },
-      { name: "Selai Strawberry", price: 4000 },
-      { name: "Keju Cream", price: 5000 }
     ]
   }
 ];
@@ -298,7 +285,7 @@ function filterAndSortProducts() {
     ? [...products] 
     : products.filter(product => product.category === category);
   
-    
+
   switch (sortOption) {
     case 'name-asc':
       filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
