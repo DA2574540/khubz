@@ -59,6 +59,29 @@ const sortFilter = document.getElementById('sort');
 
 // Function to render products
 function renderProducts(productsToRender) {
+  function attachBuyButtons() {
+  const buyButtons = document.querySelectorAll('.btn.btn-secondary');
+
+  buyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const productId = parseInt(button.id);
+      const product = products.find(p => p.id === productId);
+
+      if (product) {
+        const adminNumber = "6282169197590"; // Ganti dengan nomor admin WhatsApp
+        const pesan = `Halo, saya ingin memesan:\n\n` +
+                      `📦 Produk: ${product.name}\n` +
+                      `💰 Harga: Rp ${product.price.toLocaleString()}\n` +
+                      `📝 Deskripsi: ${product.description}\n\n` +
+                      `Silakan hubungi saya kembali.`;
+
+        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+        window.open(waURL, '_blank');
+      }
+    });
+  });
+}
+
   if (!productsContainer) return;
 
   productsContainer.innerHTML = '';
