@@ -115,7 +115,7 @@ function createProductModal(product) {
         <div class="customer-info">
           <h4>Informasi Pelanggan:</h4>
           <input type="text" id="customer-name" placeholder="Nama Lengkap" required>
-          <input type="tel" id="customer-phone" placeholder="Nomor WhatsApp" required>
+          <input type="tel" id="customer-class" placeholder="Kelas" required>
           <textarea id="customer-notes" placeholder="Catatan tambahan (opsional)" rows="3"></textarea>
         </div>
       </div>
@@ -204,7 +204,7 @@ function closeModal() {
 function orderViaWhatsApp() {
   const modal = document.querySelector('.product-modal');
   const customerName = modal.querySelector('#customer-name').value.trim();
-  const customerPhone = modal.querySelector('#customer-phone').value.trim();
+  const customerPhone = modal.querySelector('#customer-class').value.trim();
   const customerNotes = modal.querySelector('#customer-notes').value.trim();
   const quantity = parseInt(modal.querySelector('#quantity').value);
   const selectedToppings = modal.querySelectorAll('input[name="topping"]:checked');
@@ -218,7 +218,7 @@ function orderViaWhatsApp() {
   // Build order message
   let message = `🍞 *PESANAN ROTI LEZAT* 🍞\n\n`;
   message += `👤 *Nama:* ${customerName}\n`;
-  message += `📱 *WhatsApp:* ${customerPhone}\n\n`;
+  message += `📱 *kelas:* ${customerPhone}\n\n`;
   message += `🛒 *Detail Pesanan:*\n`;
   message += `• ${currentProduct.name} x${quantity}\n`;
   message += `  Harga: Rp ${currentProduct.price.toLocaleString()} per item\n`;
