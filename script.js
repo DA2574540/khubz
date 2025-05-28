@@ -43,7 +43,7 @@ const products = [
     category: "bread"
   },
   {
-    id: 8,
+    id: 2,
     name: "Cake Lava Lumer",
     price: 10000,
     description: "Cake Lava Lumernya Enggak Pelit!",
@@ -76,7 +76,7 @@ function renderProducts(productsToRender) {
         <h3>${product.name}</h3>
         <p class="price">Rp ${product.price.toLocaleString()}</p>
         <p class="description">${product.description}</p>
-        <button class="btn btn-secondary" id="">Beli Sekarang</button>
+        <button class="btn btn-secondary" id="${product.id}">Beli Sekarang</button>
       </div>
     `;
 
@@ -137,33 +137,18 @@ if (contactForm) {
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // In a real application, you would send the form data to a server
-    // For this example, we'll just show an alert
+    const nomor = "6282113790783";
+    const namaPengirim = name.value.trim();
+    const pesan = msg.value.trim()
 
-    const contactForm = document.getElementById('contactForm');
-    const name = document.getElementById('name');
-    const msg = document.getElementById('message');
-    const nomorHp = document.getElementById('phone');
+    const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
+    const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
 
-    if (contactForm) {
-      contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+    alert('Anda akan dialihkan ke WhatsApp');
+    contactForm.reset();
 
-        const nomor = "6282113790783";
-        const namaPengirim = name.value.trim();
-        const pesan = msg.value.trim()
-
-        const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
-        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
-
-        alert('Mengalihkan ke WhatsApp...');
-        contactForm.reset();
-        
-        // Buka link WhatsApp
-        window.open(waURL, '_blank');
-
-      });
-    }
+    // link WhatsApp
+    window.open(waURL, '_blank');
 
   });
 }
