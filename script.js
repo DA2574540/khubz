@@ -44,7 +44,7 @@ const products = [
     popular: true,   
     toppings: [
       { name: "Coklat ", price: 0 },
-      { name: "Matcha"}
+      { name: "Matcha", price: 0}
     ]
   },
   {
@@ -56,7 +56,9 @@ const products = [
     category: "bread",
     popular: true,
     toppings: [
-      
+      { name: "Oreo", price: 0 },
+      { name: "Keju", price: 0 },
+      { name: "ChocoChips", price: 0}
     ]
   }
 ];
