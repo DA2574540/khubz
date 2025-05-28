@@ -14,7 +14,7 @@ currentYearSpans.forEach(span => {
 if (menuToggle && navMenu) {
   menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-    
+
     // Toggle animation for hamburger menu
     const spans = menuToggle.querySelectorAll('span');
     spans.forEach(span => {
@@ -40,8 +40,7 @@ const products = [
     price: 5000,
     description: "Roti Goreng Lumer Dengan Varian Rasa Yang Meletup",
     image: "public/logo.jpg",
-    category: "bread",
-    popular: true
+    category: "bread"
   },
   {
     id: 8,
@@ -61,13 +60,13 @@ const sortFilter = document.getElementById('sort');
 // Function to render products
 function renderProducts(productsToRender) {
   if (!productsContainer) return;
-  
+
   productsContainer.innerHTML = '';
-  
+
   productsToRender.forEach(product => {
     const productCard = document.createElement('div');
     productCard.className = 'product-card';
-    
+
     productCard.innerHTML = `
       <div class="product-image">
         <img src="${product.image}" alt="${product.name}">
@@ -77,10 +76,10 @@ function renderProducts(productsToRender) {
         <h3>${product.name}</h3>
         <p class="price">Rp ${product.price.toLocaleString()}</p>
         <p class="description">${product.description}</p>
-        <button class="btn btn-secondary">Tambahkan ke Keranjang</button>
+        <button class="btn btn-secondary" id="">Beli Sekarang</button>
       </div>
     `;
-    
+
     productsContainer.appendChild(productCard);
   });
 }
@@ -88,15 +87,15 @@ function renderProducts(productsToRender) {
 // Filter and sort products
 function filterAndSortProducts() {
   if (!productsContainer) return;
-  
+
   const category = categoryFilter.value;
   const sortOption = sortFilter.value;
-  
+
   // Filter by category
-  let filteredProducts = category === 'all' 
-    ? [...products] 
+  let filteredProducts = category === 'all'
+    ? [...products]
     : products.filter(product => product.category === category);
-  
+
   // Sort products
   switch (sortOption) {
     case 'name-asc':
@@ -114,7 +113,7 @@ function filterAndSortProducts() {
     default:
       break;
   }
-  
+
   renderProducts(filteredProducts);
 }
 
@@ -122,7 +121,7 @@ function filterAndSortProducts() {
 if (productsContainer) {
   // Initial render
   renderProducts(products);
-  
+
   // Add event listeners for filters
   categoryFilter.addEventListener('change', filterAndSortProducts);
   sortFilter.addEventListener('change', filterAndSortProducts);
@@ -135,35 +134,36 @@ const pesan = document.getElementById('massage');
 const nomorHp = document.getElementById('phone');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     // In a real application, you would send the form data to a server
     // For this example, we'll just show an alert
-    
-const contactForm = document.getElementById('contactForm');
-const name = document.getElementById('name');
-const msg = document.getElementById('message');
-const nomorHp = document.getElementById('phone');
 
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+    const contactForm = document.getElementById('contactForm');
+    const name = document.getElementById('name');
+    const msg = document.getElementById('message');
+    const nomorHp = document.getElementById('phone');
 
-    const nomor = "6282113790783"; // Ganti dengan nomor WhatsApp tujuan, awali dengan kode negara (62)
-    const namaPengirim = name.value.trim();
-    const pesan = msg.value.trim()
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
-    const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
+        const nomor = "6282113790783";
+        const namaPengirim = name.value.trim();
+        const pesan = msg.value.trim()
 
-    // Buka link WhatsApp
-    window.open(waURL, '_blank');
+        const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
+        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
 
-    alert('Mengalihkan ke WhatsApp...');
-    contactForm.reset();
-  });
-}
+        alert('Mengalihkan ke WhatsApp...');
+        contactForm.reset();
+        
+        // Buka link WhatsApp
+        window.open(waURL, '_blank');
+
+      });
+    }
 
   });
 }
