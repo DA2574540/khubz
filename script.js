@@ -37,25 +37,17 @@ const products = [
   {
     id: 1,
     name: "Roti Goreng Lumer",
-    price: 25000,
-    description: "Aneka Rasa: </br> Coklat </br> Matcha",
+    price: 5000,
+    description: "Roti Goreng Lumer Dengan Varian Rasa Yang Meletup",
     image: "public/logo.jpg",
     category: "bread",
     popular: true
   },
   {
     id: 8,
-    name: "",
-    price: 15000,
-    description: "Roti dengan taburan bawang.",
-    image: "public/logo.jpg",
-    category: "bread"
-  },
-  {
-    id: 8,
-    name: "Roti air",
-    price: 15000,
-    description: "Roti dengan ketahanan air yang tinggi.",
+    name: "Cake Lava Lumer",
+    price: 10000,
+    description: "Cake Lava Lumernya Enggak Pelit!",
     image: "public/logo.jpg",
     category: "bread"
   }
