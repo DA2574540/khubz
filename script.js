@@ -36,9 +36,9 @@ window.addEventListener('scroll', () => {
 const products = [
   {
     id: 1,
-    name: "Lempuyang",
+    name: "Roti Goreng Lumer",
     price: 25000,
-    description: "Roti Goreng Lumer",
+    description: "Aneka Rasa: </br> Coklat </br> Matcha",
     image: "public/logo.jpg",
     category: "bread",
     popular: true
