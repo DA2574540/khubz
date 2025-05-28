@@ -115,7 +115,7 @@ function createProductModal(product) {
         <div class="customer-info">
           <h4>Informasi Pelanggan:</h4>
           <input type="text" id="customer-name" placeholder="Nama Lengkap" required>
-          <input type="tel" id="customer-class" placeholder="Kelas" required>
+          <input type="text" id="customer-class" placeholder="Kelas (contoh: X DKV 1)" required>
           <textarea id="customer-notes" placeholder="Catatan tambahan (opsional)" rows="3"></textarea>
         </div>
       </div>
