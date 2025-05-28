@@ -39,7 +39,7 @@ const products = [
     name: "Anjay",
     price: 25000,
     description: "Roti batu",
-    image: "public/bread-1.jpg",
+    image: "public/logo.jpg",
     category: "bread",
     popular: true,
     toppings: [

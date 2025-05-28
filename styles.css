@@ -168,7 +168,7 @@ body {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(rgba(180, 83, 9, 0.8), rgba(146, 64, 14, 0.8)), url('public/hero-bread.jpg');
+  background: linear-gradient(rgba(180, 83, 9, 0.8), rgba(146, 64, 14, 0.8)), url('public/logo.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
