@@ -127,29 +127,40 @@ if (productsContainer) {
   sortFilter.addEventListener('change', filterAndSortProducts);
 }
 
+// Contact form handling
+const contactForm = document.getElementById('contactForm');
+const name = document.getElementById('name');
+const pesan = document.getElementById('massage');
+const nomorHp = document.getElementById('phone');
 
 if (contactForm) {
   contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    
-    // Contact form handling
+
     const contactForm = document.getElementById('contactForm');
     const name = document.getElementById('name');
-    const pesan = document.getElementById('massage');
+    const msg = document.getElementById('message');
     const nomorHp = document.getElementById('phone');
-    
-    const nomor = "6282113790783";
-    const namaPengirim = name.value.trim();
-    const pesan = msg.value.trim()
 
-    const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
-    const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    alert('Anda akan dialihkan ke WhatsApp');
-    contactForm.reset();
+        const nomor = "6282113790783";
+        const namaPengirim = name.value.trim();
+        const pesan = msg.value.trim()
 
-    // link WhatsApp
-    window.open(waURL, '_blank');
+        const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
+        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
+
+        alert('Anda akan dialihkan ke WhatsApp');
+        contactForm.reset();
+
+        // Buka link WhatsApp
+        window.open(waURL, '_blank');
+
+      });
+    }
 
   });
 }
