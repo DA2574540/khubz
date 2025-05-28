@@ -14,7 +14,7 @@ currentYearSpans.forEach(span => {
 if (menuToggle && navMenu) {
   menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-
+    
     // Toggle animation for hamburger menu
     const spans = menuToggle.querySelectorAll('span');
     spans.forEach(span => {
@@ -32,23 +32,35 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Product data for shop page
+// Product data for shop page with toppings
 const products = [
   {
     id: 1,
-    name: "Roti Goreng Lumer",
-    price: 5000,
-    description: "Roti Goreng Lumer Dengan Varian Rasa Yang Meletup",
-    image: "public/logo.jpg",
-    category: "bread"
+    name: "Roti Gandum",
+    price: 25000,
+    description: "Roti gandum sehat dengan tekstur lembut dan rasa yang kaya.",
+    image: "public/bread-1.jpg",
+    category: "bread",
+    popular: true,
+    toppings: [
+      { name: "Keju Cheddar", price: 5000 },
+      { name: "Selai Kacang", price: 3000 },
+      { name: "Madu", price: 4000 },
+      { name: "Mentega", price: 2000 }
+    ]
   },
   {
     id: 2,
-    name: "Cake Lava Lumer",
-    price: 10000,
-    description: "Cake Lava Lumernya Enggak Pelit!",
-    image: "public/logo.jpg",
-    category: "bread"
+    name: "Croissant",
+    price: 15000,
+    description: "Croissant lembut dengan lapisan yang renyah dan mentega premium.",
+    image: "public/bread-2.jpg",
+    category: "pastry",
+    toppings: [
+      { name: "Coklat Nutella", price: 6000 },
+      { name: "Selai Strawberry", price: 4000 },
+      { name: "Keju Cream", price: 5000 }
+    ]
   }
 ];
 
@@ -57,39 +69,203 @@ const productsContainer = document.getElementById('products-container');
 const categoryFilter = document.getElementById('category');
 const sortFilter = document.getElementById('sort');
 
-// Function to render products
-function renderProducts(productsToRender) {
-  function attachBuyButtons() {
-  const buyButtons = document.querySelectorAll('.btn.btn-secondary');
+// Modal elements
+let currentProduct = null;
 
-  buyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const productId = parseInt(button.id);
-      const product = products.find(p => p.id === productId);
+// Function to create product modal
+function createProductModal(product) {
+  const modal = document.createElement('div');
+  modal.className = 'product-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>${product.name}</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="${product.image}" alt="${product.name}" class="modal-image">
+        <p class="modal-description">${product.description}</p>
+        <p class="modal-price">Harga Dasar: Rp ${product.price.toLocaleString()}</p>
+        
+        <div class="quantity-section">
+          <label for="quantity">Jumlah:</label>
+          <div class="quantity-controls">
+            <button type="button" class="qty-btn minus">-</button>
+            <input type="number" id="quantity" value="1" min="1" max="99">
+            <button type="button" class="qty-btn plus">+</button>
+          </div>
+        </div>
 
-      if (product) {
-        const adminNumber = "6282169197590"; // Ganti dengan nomor admin WhatsApp
-        const pesan = `Halo, saya ingin memesan:\n\n` +
-                      `📦 Produk: ${product.name}\n` +
-                      `💰 Harga: Rp ${product.price.toLocaleString()}\n` +
-                      `📝 Deskripsi: ${product.description}\n\n` +
-                      `Silakan hubungi saya kembali.`;
+        <div class="toppings-section">
+          <h4>Pilih Topping:</h4>
+          <div class="toppings-list">
+            ${product.toppings.map(topping => `
+              <label class="topping-item">
+                <input type="checkbox" name="topping" value="${topping.name}" data-price="${topping.price}">
+                <span class="topping-name">${topping.name}</span>
+                <span class="topping-price">+Rp ${topping.price.toLocaleString()}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
 
-        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
-        window.open(waURL, '_blank');
-      }
-    });
+        <div class="total-section">
+          <h4>Total: <span id="total-price">Rp ${product.price.toLocaleString()}</span></h4>
+        </div>
+
+        <div class="customer-info">
+          <h4>Informasi Pelanggan:</h4>
+          <input type="text" id="customer-name" placeholder="Nama Lengkap" required>
+          <input type="tel" id="customer-phone" placeholder="Nomor WhatsApp" required>
+          <textarea id="customer-notes" placeholder="Catatan tambahan (opsional)" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Batal</button>
+        <button class="btn btn-primary" onclick="orderViaWhatsApp()">Pesan via WhatsApp</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Add event listeners
+  setupModalEventListeners(modal, product);
+  
+  return modal;
+}
+
+function setupModalEventListeners(modal, product) {
+  // Close modal events
+  modal.querySelector('.close-modal').addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Quantity controls
+  const quantityInput = modal.querySelector('#quantity');
+  const minusBtn = modal.querySelector('.minus');
+  const plusBtn = modal.querySelector('.plus');
+
+  minusBtn.addEventListener('click', () => {
+    if (quantityInput.value > 1) {
+      quantityInput.value = parseInt(quantityInput.value) - 1;
+      updateTotalPrice(product);
+    }
+  });
+
+  plusBtn.addEventListener('click', () => {
+    if (quantityInput.value < 99) {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+      updateTotalPrice(product);
+    }
+  });
+
+  quantityInput.addEventListener('input', () => updateTotalPrice(product));
+
+  // Topping checkboxes
+  const toppingCheckboxes = modal.querySelectorAll('input[name="topping"]');
+  toppingCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => updateTotalPrice(product));
   });
 }
 
+function updateTotalPrice(product) {
+  const modal = document.querySelector('.product-modal');
+  const quantity = parseInt(modal.querySelector('#quantity').value) || 1;
+  const selectedToppings = modal.querySelectorAll('input[name="topping"]:checked');
+  
+  let basePrice = product.price;
+  let toppingPrice = 0;
+  
+  selectedToppings.forEach(topping => {
+    toppingPrice += parseInt(topping.dataset.price);
+  });
+  
+  const totalPrice = (basePrice + toppingPrice) * quantity;
+  modal.querySelector('#total-price').textContent = `Rp ${totalPrice.toLocaleString()}`;
+}
+
+function openProductModal(product) {
+  currentProduct = product;
+  const modal = createProductModal(product);
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.querySelector('.product-modal');
+  if (modal) {
+    modal.remove();
+    document.body.style.overflow = 'auto';
+    currentProduct = null;
+  }
+}
+
+function orderViaWhatsApp() {
+  const modal = document.querySelector('.product-modal');
+  const customerName = modal.querySelector('#customer-name').value.trim();
+  const customerPhone = modal.querySelector('#customer-phone').value.trim();
+  const customerNotes = modal.querySelector('#customer-notes').value.trim();
+  const quantity = parseInt(modal.querySelector('#quantity').value);
+  const selectedToppings = modal.querySelectorAll('input[name="topping"]:checked');
+  
+  // Validation
+  if (!customerName || !customerPhone) {
+    alert('Harap isi nama dan nomor WhatsApp!');
+    return;
+  }
+
+  // Build order message
+  let message = `🍞 *PESANAN ROTI LEZAT* 🍞\n\n`;
+  message += `👤 *Nama:* ${customerName}\n`;
+  message += `📱 *WhatsApp:* ${customerPhone}\n\n`;
+  message += `🛒 *Detail Pesanan:*\n`;
+  message += `• ${currentProduct.name} x${quantity}\n`;
+  message += `  Harga: Rp ${currentProduct.price.toLocaleString()} per item\n`;
+  
+  if (selectedToppings.length > 0) {
+    message += `\n🍯 *Topping yang dipilih:*\n`;
+    selectedToppings.forEach(topping => {
+      message += `• ${topping.value} (+Rp ${parseInt(topping.dataset.price).toLocaleString()})\n`;
+    });
+  }
+  
+  // Calculate total
+  let toppingPrice = 0;
+  selectedToppings.forEach(topping => {
+    toppingPrice += parseInt(topping.dataset.price);
+  });
+  const totalPrice = (currentProduct.price + toppingPrice) * quantity;
+  
+  message += `\n💰 *Total Harga:* Rp ${totalPrice.toLocaleString()}\n`;
+  
+  if (customerNotes) {
+    message += `\n📝 *Catatan:* ${customerNotes}\n`;
+  }
+  
+  message += `\n🕒 Pesanan dikirim pada: ${new Date().toLocaleString('id-ID')}\n`;
+  message += `\nTerima kasih telah memesan di Roti Lezat! 😊`;
+  
+  const whatsappNumber = '6282113790783';
+  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  
+
+  window.open(whatsappURL, '_blank');
+  
+  closeModal();
+}
+
+// nampilin produk
+function renderProducts(productsToRender) {
   if (!productsContainer) return;
-
+  
   productsContainer.innerHTML = '';
-
+  
   productsToRender.forEach(product => {
     const productCard = document.createElement('div');
     productCard.className = 'product-card';
-
+    
     productCard.innerHTML = `
       <div class="product-image">
         <img src="${product.image}" alt="${product.name}">
@@ -99,29 +275,30 @@ function renderProducts(productsToRender) {
         <h3>${product.name}</h3>
         <p class="price">Rp ${product.price.toLocaleString()}</p>
         <p class="description">${product.description}</p>
-        <button class="btn btn-secondary" id="${product.id}">Beli Sekarang</button>
+        <div class="toppings-preview">
+          <small>Topping tersedia: ${product.toppings.length} pilihan</small>
+        </div>
+        <button class="btn btn-secondary" onclick="openProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})">Pesan Sekarang</button>
       </div>
     `;
-
+    
     productsContainer.appendChild(productCard);
   });
-    
-    attachBuyButtons();
 }
 
-// Filter and sort products
+// filter produk
 function filterAndSortProducts() {
   if (!productsContainer) return;
-
+  
   const category = categoryFilter.value;
   const sortOption = sortFilter.value;
-
-  // Filter by category
-  let filteredProducts = category === 'all'
-    ? [...products]
+  
+  // filter sesuai kategori
+  let filteredProducts = category === 'all' 
+    ? [...products] 
     : products.filter(product => product.category === category);
-
-  // Sort products
+  
+    
   switch (sortOption) {
     case 'name-asc':
       filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
@@ -138,7 +315,7 @@ function filterAndSortProducts() {
     default:
       break;
   }
-
+  
   renderProducts(filteredProducts);
 }
 
@@ -146,7 +323,7 @@ function filterAndSortProducts() {
 if (productsContainer) {
   // Initial render
   renderProducts(products);
-
+  
   // Add event listeners for filters
   categoryFilter.addEventListener('change', filterAndSortProducts);
   sortFilter.addEventListener('change', filterAndSortProducts);
@@ -154,41 +331,19 @@ if (productsContainer) {
 
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
-const name = document.getElementById('name');
-const pesan = document.getElementById('massage');
-const nomorHp = document.getElementById('phone');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', function (e) {
+  contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const contactForm = document.getElementById('contactForm');
-    const name = document.getElementById('name');
-    const msg = document.getElementById('message');
-    const nomorHp = document.getElementById('phone');
-
-    if (contactForm) {
-      contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const nomor = "6282113790783";
-        const namaPengirim = name.value.trim();
-        const pesan = msg.value.trim()
-
-        const fullMessage = `Halo, nama saya ${namaPengirim}.\n${pesan}`;
-        const waURL = `https://wa.me/${nomor}?text=${encodeURIComponent(fullMessage)}`;
-
-        alert('Anda akan dialihkan ke WhatsApp');
-        contactForm.reset();
-
-        // Buka link WhatsApp
-        window.open(waURL, '_blank');
-
-      });
-    }
-
+    
+    alert('Pesan Anda telah dikirim! Kami akan menghubungi Anda segera.');
+    contactForm.reset();
   });
 }
 
-
-
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
