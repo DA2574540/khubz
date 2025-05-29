@@ -246,7 +246,7 @@ function orderViaWhatsApp() {
   message += `\n🕒 Pesanan dikirim pada: ${new Date().toLocaleString('id-ID')}\n`;
   message += `\nTerima kasih telah memesan di Roti Lezat! 😊`;
   
-  const whatsappNumber = '629694714441';
+  const whatsappNumber = '6289694714441';
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   
 
