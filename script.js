@@ -39,7 +39,7 @@ const products = [
     name: "Roti Coklat",
     price: 5000,
     description: "Roti batu",
-    image: "public/logo.jpg",
+    image: "public/rotiCoklat.jpg",
     category: "bread",
     popular: true,   
     toppings: [
@@ -246,7 +246,7 @@ function orderViaWhatsApp() {
   message += `\n🕒 Pesanan dikirim pada: ${new Date().toLocaleString('id-ID')}\n`;
   message += `\nTerima kasih telah memesan di Roti Lezat! 😊`;
   
-  const whatsappNumber = '6289694714441';
+  const whatsappNumber = '6282113790783';
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   
 
