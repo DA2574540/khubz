@@ -52,7 +52,7 @@ const products = [
     name: "Roti Lumer",
     price: 10000,
     description: "Roti batu",
-    image: "public/logo.jpg",
+    image: "public/rotiLumer.jpg",
     category: "bread",
     popular: true,
     toppings: [
@@ -249,7 +249,7 @@ function orderViaWhatsApp() {
   const whatsappNumber = '6282113790783';
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   
-
+  alert('Pesan Anda telah dikirim! Kami akan menghubungi Anda segera.');
   window.open(whatsappURL, '_blank');
   
   closeModal();
