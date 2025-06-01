@@ -52,7 +52,7 @@ const products = [
     name: "Roti Lumer",
     price: 10000,
     description: "Roti batu",
-    image: "public/rotiLumer.jpg",
+    image: "public/rotiLumerr.jpg",
     category: "bread",
     popular: true,
     toppings: [
